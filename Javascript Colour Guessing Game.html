@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<body onload="do_game()">
+    <h1> Awal's colour guessing game! </h1>
+    <script>
+        var colors = ["azure", "black", "cyan", "darkblue", "fuchsia", "gold"];
+        var target;
+        var count = 0;
+        var finished = false;
+        var guess_input;
+        function do_game() {
+            colors.sort();
+            target = Math.floor(Math.random() * colors.length);
+            do {
+                guess_input = prompt(
+                    "I am thinking of one of these colours\n\n" + colors +
+                    "\n\nWhat colour am I thinking of?"
+                )
+                count ++;
+            } 
+            while (check_guess());
+        }
+        function check_guess() {
+            var idx = colors.indexOf(guess_input);
+            if (idx < 0)
+                alert("No! Did you not see what colours are available?");
+            else if (idx > target)
+                alert("Your input is alphabetically higher!");
+            else if (idx < target)
+                alert("Your input is alphabetically lower!");
+            else {
+                elem_body = document.getElementsByTagName("body")[0];
+                elem_body.style.background = colors[target];
+                alert(guess_input + " is right! You took " + count + " guesses!");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
